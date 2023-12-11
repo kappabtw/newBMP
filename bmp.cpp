@@ -141,12 +141,12 @@ int main() {
         string newfile_name;
         cin >> file_name;
         file_name = file_name + ".bmp";
-        newfile_name = "new" + file_name + ".bmp";
+        newfile_name = "new" + file_name;
 
         fstream img(file_name, ios::binary);
 
         bool correctInput = false;
-        
+
         while (correctInput == false)
         {
             ifstream img(file_name, ios::binary);
