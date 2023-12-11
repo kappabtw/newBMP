@@ -143,14 +143,21 @@ int main() {
         file_name = file_name + ".bmp";
         newfile_name = "new" + file_name + ".bmp";
 
-        ifstream img(file_name, ios::binary);
-        ofstream newbmp(newfile_name, ios::binary | ios::trunc);
+        fstream img(file_name, ios::binary);
 
+        bool correctInput = false;
         
-        if (!img.is_open()) {
-            cerr << "Error!" << endl;
-            return 0;
+        while (correctInput == false)
+        {
+            ifstream img(file_name, ios::binary);
+            if (!img.is_open()) {
+                cerr << "Error!" << endl;
+                system("pause");
+                return 0;
+            }
+            correctInput = true;
         }
+        ofstream newbmp(newfile_name, ios::binary | ios::trunc);
 
         
         BMPHeader header;
@@ -198,12 +205,12 @@ int main() {
         cout<<"Contuie?\n0 - no\n1 = yes"<<endl;
         int choice;
         cin>>choice;
-        switch (choice)
+        if (choice == 1)
         {
-            case 1:
-                continueWork = true;
-                break;
-
+            continueWork = true;
+        }
+        else
+        {
             system("pause");
             continueWork = false;
             break;
