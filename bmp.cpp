@@ -143,23 +143,17 @@ int main() {
         file_name = file_name + ".bmp";
         newfile_name = "new" + file_name;
 
-        fstream img(file_name, ios::binary);
+        ifstream img(file_name, ios::binary);
 
-        bool correctInput = false;
-
-        while (correctInput == false)
+        if (!img.is_open())
         {
-            ifstream img(file_name, ios::binary);
-            if (!img.is_open()) {
-                cerr << "Error!" << endl;
-                system("pause");
-                return 0;
-            }
-            correctInput = true;
+            cerr << "Error!" << endl;
+            system("pause");
+            return 0;
         }
+
         ofstream newbmp(newfile_name, ios::binary | ios::trunc);
 
-        
         BMPHeader header;
         img.read(reinterpret_cast<char*>(&header), sizeof(header));
 
@@ -178,7 +172,6 @@ int main() {
         cout << "Enter some number " << endl;
         cout << "1 - Rotate 90 degrees to the right, 2 - Rotate 90 degrees to the left, 0 - without rotate ";
         cin >> command1;
-
         if (command1 == '1')
             rotate_right(pix, header); 
         else if (command1 == '2')
@@ -197,7 +190,7 @@ int main() {
         newbmp.write(reinterpret_cast<char*>(garbage), header.data_offset - 54); 
         newbmp.write(reinterpret_cast<char*>(pix.data()), pix.size() * 3); 
 
-        cout << "New file - 'newbmp.bmp'." << endl;
+        cout << "\nNew file - "<<newfile_name<< endl;
 
         img.close(); 
         newbmp.close(); 
